@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Handwriting recognition of numeric digits with TensorFlowJS">
+  <meta name="keywords" content="TensorFlowJS, Javascript, Material Design, HTML, CSS, Machine Learning, Handwriting Recognition">
+  <meta name="author" content="Shimanta Bhuyan">
+  <title>Digit Recognition with TensorFlow.JS</title>
+
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost&display=swap">
+  <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.blue-purple.min.css">
+
+  <link rel="stylesheet" type="text/css" href="digit.css">
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>  
+
+  <script>
+    document.onreadystatechange = function () {
+      $('#predict-button').prop('disabled', true);
+      $('#result_box').hide();
+      $("#helperText").hide();
+      var state = document.readyState;
+      if (state == 'complete') {		
+        $('#predict-button').prop('disabled', false);
+        $("#helperText").show();
+      }
+    }
+  </script>
+
+  <!-- Import TensorFlow.js -->
+  <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.0.0/dist/tf.min.js"></script>
+
+	<script defer src="digit_recognition.js"></script>
+  
+  <!-- <script src="chart.min.js"></script> -->
+  
+  <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+
+  <!-- Import tfjs-vis -->
+  <!-- <script defer src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-vis@1.0.2/dist/tfjs-vis.umd.min.js"></script> -->
+</head>
+<body>
+  <main id="main">
+    <div class="mdl-grid center-items">
+      <h2 mdl-cell mdl-cell--6-col mdl-cell--12-col-phone>Digit Recognition</h2>
+    </div>
+    <div class="mdl-grid digit-demo-container center-items mdl-shadow--6dp">
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone center-items">
+          <div id="canvas_box_wrapper" class="mdl-grid center-items">
+            <div id="canvas_box" class="mdl-cell mdl-cell--12-col center-items"></div>            
+            <div id="sliderContainer mdl-cell mdl-cell--12-col">
+              <input class="mdl-slider mdl-js-slider" type="range" id="slider" min="150" max="300" value="150" tabindex="0"> 
+            </div>           
+            <div class="mdl-cell mdl-cell--12-col center-items">
+              <button id="predict-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Predict</button>
+              <button id="clear-button" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Clear</button>
+            </div>	
+          </div>
+        </div>
+        <!-- <div class="col-12 col-md-8 col-lg-6"> -->
+          <!-- 
+          <div id="result_box" class="col-12 col-md-7">
+            <canvas id="chart_box" width="100" height="100"></canvas>
+          </div>
+          <div class="col-12 d-block mt-2 mt-md-0 text-md-left prediction-text"></div>
+          -->
+
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone center-items mdl-shadow--2dp card" id="preloader">
+          <p>Model loading...</p>
+          <div id="p2" class="mdl-progress mdl-js-progress mdl-progress__indeterminate"></div>
+        </div>
+
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone center-items mdl-shadow--2dp card" id="helperText">
+          <h3 class="center-items">Draw a digit to predict</h3>
+          <hr />
+          <div class="center-items">
+            <h5 class="center-items">Draw a digit in the canvas and click on predict to find out if the model can predict what you had drawn!</h5>
+          </div>
+        </div>
+        
+        <div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone center-items mdl-shadow--2dp card" id="result_box">
+          <h3 class="center-items">Predicted Digit</h3>
+          <hr />
+          <div class="center-items">
+            <h5 class="center-items">The model has predicted the number as:</h5>
+            <p class="prediction-text center-items"></p>
+            <h3 class="center-items">Percentage Prediction:<span class="percentage-text "></span></h3>
+          </div>
+        </div>
+    </div>
+
+    <div class="mdl-grid center-items">
+      <h4 id="disclaimer" class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone">Results shown may not be accurate, pardon my basic ML knowledge!</h4>
+    </div>
+  </main>
+
+  <footer class="center-items">
+      <p id="madeWith" class="footerText">
+        <a href="https://www.tensorflow.org/js">&#35;MadeWithTFJS</a>
+      </p>
+      <p id="madeBy" class="footerText">
+        <a href="https://dev-krishan-dhaka.github.io/devkrishan.github.io/" target="_blank">&#128187; by Dev Krishan</a>
+      </p>
+  </footer>
+
+</body>
+
+</html>
